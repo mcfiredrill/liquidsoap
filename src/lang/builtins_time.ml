@@ -88,7 +88,16 @@ let () =
       execute fn tm);
   add_builtin ~cat:Sys "gmtime" ~descr:"Convert a time in seconds into a date in \
           the UTC time zone and execute passed callback with the result. Fields meaning \
-          same as POSIX's `tm struct`. Warning: \"year\" is: year - 1900, i.e. 117 for 2017!"
+          same as POSIX's `tm struct`. Warning: \"year\" is: year - 1900, i.e. 117 for 2017! \
+          Example: \
+            def format_time(~sec,~min,~hour,~mday,~mon,~year,
+                  ~wday,~yday,~isdst) =
+              "#{1900+year}-#{mon+1}-#{mday}"
+            end
+            date = localtime(gettimeofday(),format_time)
+            # yyyy-mm-dd
+            print(date)
+          "
     ["",Lang.float_t,None,None;
      "",fn_t,None,None]
     t
